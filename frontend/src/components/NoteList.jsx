@@ -3,6 +3,7 @@ import NoteCard from './NoteCard.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 import { motion } from 'framer-motion';
 import { Plus, Star, Zap, Bell, Heart, Coffee, Book } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 export default function NoteList({ notes, onCreate, onDelete, onUpdate }) {
   const [title, setTitle] = useState('');
@@ -57,6 +58,29 @@ export default function NoteList({ notes, onCreate, onDelete, onUpdate }) {
 
   return (
     <div>
+
+           {/* ✅ Helmet Meta Tags */}
+      <Helmet>
+        <title>Notes Dashboard | SaaS Notes App</title>
+        <meta
+          name="description"
+          content={
+            notes.length > 0
+              ? `Manage and view notes: ${notes.map((n) => n.title).slice(0, 5).join(', ')}`
+              : 'Manage and view your notes securely across multiple tenants.'
+          }
+        />
+        <meta
+          name="keywords"
+          content={
+            notes.length > 0
+              ? `notes, SaaS notes, ${notes.map((n) => n.title).join(', ')}`
+              : 'notes, SaaS notes, collaboration, multi-tenant'
+          }
+        />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+      
       {/* Add Note Form */}
       {userRole === 'member' && (
   <motion.form

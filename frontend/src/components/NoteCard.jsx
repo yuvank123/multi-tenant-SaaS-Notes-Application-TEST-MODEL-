@@ -41,7 +41,7 @@ export default function NoteCard({ note, onDelete, onUpdate, userRole, IconCompo
             />
             <div className="flex justify-end gap-2">
               <motion.button
-                className="flex items-center gap-1 px-4 py-2 bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-lg font-semibold shadow-lg"
+                className="flex items-center gap-1 px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-lg font-semibold shadow-lg"
                 onClick={handleSave}
                 whileHover={{ scale: 1.05 }}
               >
@@ -63,10 +63,11 @@ export default function NoteCard({ note, onDelete, onUpdate, userRole, IconCompo
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-1">
               {IconComponent && <IconComponent className="w-5 h-5 text-yellow-400" />}
               <h3 className="font-bold text-xl text-white">{note.title}</h3>
             </div>
+            <p className="text-gray-400 text-xs mb-2">ID: {note._id}</p>
             <p className="text-gray-300">{note.content}</p>
 
             {userRole === 'member' && (

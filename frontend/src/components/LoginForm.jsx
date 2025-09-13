@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Lock, Info, Layers } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 export default function LoginForm() {
   const { login } = useAuth();
@@ -41,6 +42,14 @@ export default function LoginForm() {
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-gradient-to-br from-gray-900 via-black to-gray-800 text-gray-200 overflow-hidden">
       
+      {/* ✅ Helmet for SEO */}
+      <Helmet>
+        <title>Login - Multi-Tenant Notes App</title>
+        <meta name="description" content="Login to access your secure, multi-tenant SaaS notes application with role-based access and real-time collaboration." />
+        <meta name="keywords" content="login, SaaS, multi-tenant, notes app, secure, collaboration, real-time updates" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+
       {/* Left Side: Login Form */}
       <motion.div
         className="w-full md:w-1/2 flex items-center justify-center p-8"

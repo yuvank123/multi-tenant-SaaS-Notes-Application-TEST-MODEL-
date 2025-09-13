@@ -41,3 +41,27 @@ export const inviteUser = async (req, res) => {
     const user = await User.create({ email, passwordHash: hash, role, tenantId: tenant._id });
     return res.status(201).json({ email: user.email, role: user.role });
 };
+
+export const getTenantUsers = async (req, res) => {
+    const { slug } = req.params;
+
+    try {
+        const tenant = await Tenant.findOne({ slug });
+        if (!tenant) return res.status(404).json({ error: 'tenant_not_found' });
+
+        // ensure admin belongs to this tenant
+        if (tenant._id.toString() !== req.user.tenantId) {
+            return res.status(403).json({ error: 'forbidden' });
+        }
+
+        const users = await User.find(
+            { tenantId: tenant._id },
+            { email: 1, role: 1, _id: 0 } // only return email & role for security
+        );
+
+        return res.json({ users });
+    } catch (err) {
+        console.error('Error fetching tenant users:', err);
+        return res.status(500).json({ error: 'server_error' });
+    }
+};
